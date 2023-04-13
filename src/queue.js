@@ -1,35 +1,43 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { ListNode } = require('../extensions/list-node.js');
 
-// const { ListNode } = require('../extensions/list-node.js');
-
-/**
- * Implement the Queue with a given interface via linked list (use ListNode extension above).
- *
- * @example
- * const queue = new Queue();
- *
- * queue.enqueue(1); // adds the element to the queue
- * queue.enqueue(3); // adds the element to the queue
- * queue.dequeue(); // returns the top element from queue and deletes it, returns 1
- * queue.getUnderlyingList() // returns { value: 3, next: null }
- */
 class Queue {
-
-  getUnderlyingList() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor() {//создаем креативим
+    this.head = null;
+    this.tail = null;
   }
 
-  enqueue(/* value */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  enqueue(value) {
+    const newNode = new ListNode(value);
+
+    if (!this.head) {//добавляет добро в конец всего добра или если нет добра делает добром в единственном и неповторимом
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      this.tail.next = newNode;//добавляет новый узел в конец очереди, связывая его с предыдущим последним элементом
+      this.tail = newNode; //обновляется на только что добавленный узел, чтобы указать на новый конец очереди:
+    }
   }
 
   dequeue() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    if (!this.head) {
+      return null;
+    }
+
+    const value = this.head.value; //Если очередь не пустая, сохраняет значение первого узла в переменной
+    this.head = this.head.next; //обновляет head на следующий узел в очереди. ТАк тут предыдущее значение абонента не есть доступно, задзвоньте позже :D
+
+    if (!this.head) {//после удаления будет Нуль чи не
+      this.tail = null;
+    }
+
+    return value;
+  }
+
+  getUnderlyingList() {
+    return this.head;
   }
 }
+
 
 module.exports = {
   Queue
